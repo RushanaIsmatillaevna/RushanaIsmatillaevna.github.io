@@ -1,0 +1,282 @@
+<!DOCTYPE html>  
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasbga yo'naltirish testi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1d3a99;
+            color: #fff;
+        }
+        .container {
+            max-width: 90%;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 24px;
+            color: #3d3b3b;
+        }
+        .zor {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: #333 2px solid;
+            border-radius: 10px;
+            color: #333;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: rgb(37, 36, 36);
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            background-color: #054f99;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        .options button:hover {
+            background-color: #03264c;
+        }
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            color: #007BFF;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 20px;
+            }
+            .options button {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .zor {
+                padding: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>E.A.Klimova usuli bo'yicha kasbga yo'naltirish testi.</h1>
+        </header>
+        <div id="quiz">
+            <div class="question" id="question">Savol shu yerda paydo bo'ladi</div>
+            <div class="options" id="options"></div>
+        </div>
+        <div id="result" class="result" style="display: none;"></div>
+        <div class="zor">
+            <h4>Ishga yo'naltirish vositalari</h4>
+            <p>Maktab fanlariga bo'lgan qiziqishingizga qarab, kasbni tanlang. Ish ob'ektiga qarab kasbni tanlang. Mutaxassis bilan maslahatlashing. Yashirin istak va imkoniyatlarni har tomonlama tahlil qilib, kasbni tanlang.</p>
+        </div>
+    </div>
+  
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+ 
+            const questions = [
+{
+    text: "1) Siz ... afzal ko'rasizmi:",
+    options: ["A) Hayvonlarga qarash (ularni boqish, parvarish qilish)", "B) Mashina priborlariga xizmat qilish"],
+    resultImpact: { A: "Inson-sanat obrazi", B: "Inson-tabiyat" }
+},
+{
+    text: "2) Siz ... afzal ko'rasizmi:",
+    options: ["Bemor kishilarga yordam berish, ularni davolash", "Jadvallar, sxemalar, hisoblash malumotlari uchun dasturlar tuzish"],
+    resultImpact: { A: "Inson-inson", B: "Inson-belgili tizim" }
+},
+{
+    text: "3) Siz ... afzal ko'rasizmi:",
+    options: ["Kitob bexaklari, plakatlar, badiiy otkritkalar, gramplastinkalar sifatini kuzatib borish", "O'simliklar holatini i'sishini kuzatish"],
+    resultImpact: { A: "Inson-san'at obrazi", B: "Inson-tabiyat" }
+},
+{
+    text: "4) Siz ... afzal ko'rasizmi:",
+    options: ["Materiallarni ishlab chiqarish", "Mahsulotlarni reklama qilish, sotish"],
+    resultImpact: { A: "Inson-texnik", B: "Inson-inson" }
+},
+{
+    text: "5) Siz ... afzal ko'rasizmi:",
+    options: ["Ilmiy-ommabop kitoblar va maqolalarni muhokama qiling", "Badiiy kitoblarni muhokama qiling"],
+    resultImpact: { A: "Inson-belgili tizim", B: "Inson-san'at obrazi" }
+},
+{
+    text: "6) Siz ... afzal ko'rasizmi:",
+    options: ["Har qanday zotdagi yosh hayvonlarni ko'taring", "Tengdoshlarni (yoki kichiklarni) har qanday faoliyatni (mehnat, ta'lim, sport) bajarishga o'rgating."],
+    resultImpact: { A: "Inson-tabiyat", B: "Inson-inson" }
+},
+{
+    text: "7) Siz ... afzal ko'rasizmi:",
+    options: ["Chizmalarni, tasvirlarni nuxsalash, musiqa asboblarini sozlash", "Har qanday yuk yoki yukkotarivchi vositani (kran, traktor)"],
+    resultImpact: { A: "Inson-san'at obrazi", B: "Inson-texnik" }
+},
+{
+    text: "8) Siz ... afzal ko'rasizmi:",
+    options: ["Odamlarga kerakli ma'lumotlarni (axborot stolida, ekskursiyalarda va hokazo) xabardor qiling va tushuntiring", "Ko'rgazmalar, vitrinlarni badiiy loyihalash, spektakl va konsertlar tayyorlashda ishtirok etish"],
+    resultImpact: { A: "Inson-inson", B: "Inson-san'at obrazi" }
+},
+{
+    text: "9) Siz ... afzal ko'rasizmi:",
+    options: ["Ta'mirlash mahsulotlari, narsalar (kiyim-kechak, jihizlar), uy-joy", "Matnlar, jadvallar, rasmlardagi xatolarni toping va tuzating"],
+    resultImpact: { A: "Inson-texnik", B: "Inson-belgili tizim" }
+},
+{
+    text: "10) Siz ... afzal ko'rasizmi:",
+    options: ["Hayvonlarni davolash", "Hisob-kitoblarni bajarish"],
+    resultImpact: { A: "Inson-tabiyat", B: "Inson-belgili tizim" }
+},
+{
+    text: "11) Siz ... afzal ko'rasizmi:",
+    options: ["O'simliklarning yangi navlarini ko'paytirish", "Yangi turdagi sanoat mahsulotlarini loyihalash, loyihalash (avtomobillar, kiyim-kechak, uylar, oziq-ovqat)"],
+    resultImpact: { A: "Inson-tabiyat", B: "Inson-texnik" }
+},
+{
+    text: "12) Siz ... afzal ko'rasizmi:",
+    options: ["Odamlar o'rtasidagi kelishmovchiliklarni, janjallarni hal qilish, ishontirish, tushuntirish, rag'batlantirish, jazolash", "Chizmalar, diagrammalar, jadvallarni tushunish (tekshirish, aniqlashtirish, tartibga solish)"],
+    resultImpact: { A: "Inson-inson", B: "Inson-belgili tizim" }
+},
+{
+    text: "13) Siz ... afzal ko'rasizmi:",
+    options: ["Badiiy havaskorlik jamoalari faoliyatini kuzatish va o'rganish", "Mikroblarning hayotini kuzatish va o'rganish"],
+    resultImpact: { A: "Inson-san'at obrazi", B: "Inson-tabiyat" }
+},
+{
+    text: "14) Siz ... afzal ko'rasizmi:",
+    options: ["Tibbiy asboblar va asboblarni saqlash va sozlash", "Odamlarga jarohatlar, ko'karishlar, kuyishlar va boshqalar uchun tibbiy yordam ko'rsatish"],
+    resultImpact: { A: "Inson-belgili tizim", B: "Inson-tabiyat" }
+},
+{
+    text: "15) Siz ... afzal ko'rasizmi:",
+    options: ["Kuzatilgan hodisalar, hodisalar, o'lchangan ob'ektlarning ani tasvirlarini (hisobotlarini) tuzing", "Kuzatilgan yoki tasavvur qilingan hodisalarni badiiy tasvirlash yoki tasvirlash"],
+    resultImpact: { A: "Inson-tabiyat", B: "Inson-inson" }
+},
+{
+    text: "16) Siz ... afzal ko'rasizmi:",
+    options: ["Kasalxonada laboratoriya tekshiruvlarini o'tkazing", "Bemorlarni qabul qilish, tekshirish, ular bilan suhbatlashish, davolanishni buyurish"],
+    resultImpact: { A: "Inson-hunar san'ati", B: "Inson-texnik" }
+},
+{
+    text: "17) Siz ... afzal ko'rasizmi:",
+    options: ["Binolarning devorlarini, mahsulotlarning sirtini bo'yash", "Binoni o'rnating yoki mashina va qurilmalarni yig'ing"],
+    resultImpact: { A: "Inson-texnik", B: "Inson-hunar san'ati" }
+},
+{
+    text: "18) Siz ... afzal ko'rasizmi:",
+    options: ["Tengdoshlar yoki kichik o'rtoqlar uchun teatrlarga, muzeylarga, ekskursiyalarga, piyoda sayohatlarga va hokazoga madaniy sayohatlarni tashkil qiling", "Sahnada o'ynang, kontsertlarda qatnashing"],
+    resultImpact: { A: "San'at va madaniyat", B: "Performans san'ati" }
+},
+{
+    text: "19) Siz ... afzal ko'rasizmi:",
+    options: ["Chizmalarga muvofiq mahsulot qismlarini (avtomobillar, kiyim-kechaklar) ishlab chiqarish, binolarni qurish", "Chizma, chizmalarni, xaritalarni nusxalash"],
+    resultImpact: { A: "Qurilish va dizayn", B: "Grafik va chizmachilik" }
+},
+(
+    {
+    text: "20) Siz ... afzal ko'rasizmi:",
+    options: ["O'simlik kasalliklari, o'rmon va bog'zar zararkunandalariga qarshi kurash", "Klaviatura mashinalarini"],
+    resultImpact: { A: "Inson-tabiyat", B: "Inson-texnik" }
+}
+        )
+
+];
+
+            let currentQuestion = 0;
+            const questionEl = document.getElementById('question');
+            const optionsEl = document.getElementById('options');
+            const resultEl = document.getElementById('result');
+            const resultCounts = {}; // Счетчик для результатов
+
+            // Показывает текущий вопрос
+            function showQuestion() {
+                if (currentQuestion < questions.length) {
+                    const question = questions[currentQuestion];
+                    questionEl.textContent = question.text;
+
+                    optionsEl.innerHTML = ''; // Очистить предыдущие варианты ответов
+                    question.options.forEach((option, index) => {
+                        const button = document.createElement('button');
+                        button.textContent = option;
+                        button.addEventListener('click', () => {
+                            handleAnswer(index);
+                        });
+                        optionsEl.appendChild(button);
+                    });
+                } else {
+                    showResult();
+                }
+            }
+
+            // Обработка выбранного ответа
+            function handleAnswer(selectedIndex) {
+                const question = questions[currentQuestion];
+                const key = Object.keys(question.resultImpact)[selectedIndex];
+                const result = question.resultImpact[key];
+
+                // Подсчёт результатов
+                resultCounts[result] = (resultCounts[result] || 0) + 1;
+
+                currentQuestion++;
+                showQuestion();
+            }
+
+            // Показывает результаты теста
+            function showResult() {
+                questionEl.style.display = 'none';
+                optionsEl.style.display = 'none';
+                resultEl.style.display = 'block';
+                resultEl.textContent = 'Sinov tugallandi! Ishtirokingiz uchun rahmat.';
+
+                // Отображаем результаты с процентами
+                for (const [key, value] of Object.entries(resultCounts)) {
+                    const percentage = Math.round((value / questions.length) * 100);
+                    const resultItem = document.createElement('div');
+                    resultItem.textContent = `${key}: ${percentage}%`;
+                    resultEl.appendChild(resultItem);
+                }
+            }
+
+            showQuestion(); // Вызов первого вопроса
+        });
+    </script>
+</body>
+</html>
